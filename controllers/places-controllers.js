@@ -56,7 +56,7 @@ const createPlace = async (req, res, next) => {
     return next(new HttpError('Invalid request', 422));
   }
 
-  const { title, description, address, creator } = req.body;
+  const { title, description, address } = req.body;
 
   let coordinates;
   try {
@@ -71,12 +71,12 @@ const createPlace = async (req, res, next) => {
     address,
     location: coordinates,
     image: req.file.path,
-    creator,
+    creator: req.userData.userId,
   });
 
   let user;
   try {
-    user = await User.findById(creator);
+    user = await User.findById(req.userData.userId);
   } catch (err) {
     return next(new HttpError('Creating place failed', 500));
   }
@@ -121,6 +121,10 @@ const updatePlace = async (req, res, next) => {
     return next(error);
   }
 
+  if (updatedPlace.creator.toString() !== req.userData.userId) {
+    new HttpError('Not allowed', 403);
+  }
+
   if (!updatedPlace) {
     const error = new HttpError('Place not found!', 404);
     return next(error);
@@ -155,6 +159,10 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
+  if (place.creator.id !== req.userData.userId) {
+    new HttpError('Not allowed', 403);
+  }
+
   if (!place) {
     return next(new HttpError('Place not found!', 404));
   }
@@ -175,7 +183,7 @@ const deletePlace = async (req, res, next) => {
     );
   }
 
-  fs.unlink(imagePath, err => console.log(err))
+  fs.unlink(imagePath, (err) => console.log(err));
 
   res.status(200).json({ message: 'Place deleted' });
 };
