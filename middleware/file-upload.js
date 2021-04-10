@@ -14,7 +14,7 @@ const fileUpload = multer({
     destination: (req, file, cb) => {
       let path = 'src/uploads/images';
       fs.mkdirSync(path);
-      cb(null, 'uploads/images');
+      cb(null, path);
     },
     filename: (req, file, cb) => {
       const ext = MIME_TYPE_MAP[file.mimetype];
