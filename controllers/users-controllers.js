@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
 
-const PRIVATE_KEY = 'supercalifragilistico_espialidoso';
+const PRIVATE_KEY = process.env.JWT_KEY;
 
 const getUsers = async (req, res, next) => {
   let users;

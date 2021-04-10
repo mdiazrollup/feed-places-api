@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const HttpError = require('../models/http-error');
 
-const PRIVATE_KEY = 'supercalifragilistico_espialidoso';
+const PRIVATE_KEY = process.env.JWT_KEY;
 
 module.exports = (req, res, next) => {
   // Options request don't need authorization

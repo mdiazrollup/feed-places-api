@@ -10,8 +10,7 @@ const usersRoutes = require('./routes/users-routes');
 
 const app = express();
 
-const uri =
-  'mongodb+srv://root:p4ssw0rd@cluster0.55nug.mongodb.net/feed-places?retryWrites=true&w=majority';
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@cluster0.55nug.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 app.use(bodyParser.json());
 
