@@ -23,4 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # images
+# adding this ignore generate error to upload images
 #/uploads/images/*

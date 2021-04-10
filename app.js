@@ -15,10 +15,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@cluster0
 app.use(bodyParser.json());
 
 // To serve images statically
-app.use(
-  '/src/uploads/images',
-  express.static(path.join('src', 'uploads', 'images'))
-);
+app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 // Middleware to add headers to response and prevent CORS errors
 app.use((req, res, next) => {
