@@ -6,6 +6,7 @@ const HttpError = require('../models/http-error');
 const getCoordForAddress = require('../utils/location');
 const Place = require('../models/place');
 const User = require('../models/user');
+const deleteImage = require('../utils/delete-image');
 
 const getPlaceById = async (req, res, next) => {
   const pid = req.params.pid;
@@ -70,7 +71,8 @@ const createPlace = async (req, res, next) => {
     description,
     address,
     location: coordinates,
-    image: req.file.path,
+    image: req.file.location,
+    imageKey: req.file.key,
     creator: req.userData.userId,
   });
 
@@ -167,7 +169,8 @@ const deletePlace = async (req, res, next) => {
     return next(new HttpError('Place not found!', 404));
   }
 
-  const imagePath = place.image;
+  //const imagePath = place.image;
+  const imageKey = place.imageKey;
 
   try {
     const session = await mongoose.startSession();
@@ -183,7 +186,8 @@ const deletePlace = async (req, res, next) => {
     );
   }
 
-  fs.unlink(imagePath, (err) => console.log(err));
+  // fs.unlink(imagePath, (err) => console.log(err));
+  deleteImage(imageKey);
 
   res.status(200).json({ message: 'Place deleted' });
 };
