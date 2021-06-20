@@ -1,9 +1,9 @@
 {
   "env": {
     "DB_USER": "root",
-    "DB_PWD": "p4ssw0rd",
+    "DB_PWD": "xxxxxxxxx",
     "DB_NAME": "feed-places",
-    "GOOGLE_API_KEY": "AIzaSyBdZErs4OPITB1J5rsFbDG5f1sKRVL7fCA",
-    "JWT_KEY": "supercalifragilistico_espialidoso"
+    "GOOGLE_API_KEY": "GOOGLE_API_KEY",
+    "JWT_KEY": "JWT_KEY"
   }
 }
